@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import dataStore from './store/dataStore'
+import { observer } from 'mobx-react'
+import FileUploader from './component/FileUploader'
+import DataSelector from './component/DataSelector'
+import { Row, Col} from 'antd'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+window.store = dataStore
 
-export default App;
+const App = observer(() => (
+  <div className="main-container">
+    <Row type='flex' justify='center' align='middle'>
+      <Col span={18}>
+      </Col>
+      <Col span={6}>
+        <FileUploader></FileUploader>
+        <DataSelector></DataSelector>
+        <div></div>
+      </Col>
+    </Row>
+  </div>
+))
+
+export default App
