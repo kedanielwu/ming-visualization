@@ -3,7 +3,6 @@ import { Select, Checkbox, Col, Row } from 'antd'
 import { observer } from 'mobx-react'
 import dataStore from '../store/dataStore'
 import UIStore from '../store/UIStore'
-import { observable } from 'mobx'
 
 const Option = Select.Option
 const CheckboxGroup = Checkbox.Group
@@ -13,7 +12,10 @@ const SessionSelector = observer(() => {
     <div>
       <Select 
         value={UIStore.selectedSession}
-        onChange={(value) => {UIStore.selectedSession = value}}
+        onChange={(value) => {
+          UIStore.selectedParticipants = []
+          UIStore.selectedSession = value
+        }}
         style={{width: '100%'}}
         placeholder="Select a session to begin"
       >
@@ -33,9 +35,12 @@ const UserSelector = observer(() => {
   return (
     <div>
       <div className="user-selector-header">Select Participants: </div>
-      <CheckboxGroup>
+      <CheckboxGroup 
+        onChange={values => {UIStore.selectedParticipants = values}}
+        value={UIStore.selectedParticipants}
+      >
         <Row>
-          {options.map(user => <Col span={24}><Checkbox value={user}>Participant {user}</Checkbox></Col>)}
+          {options.map(user => <Col key={user} span={24}><Checkbox value={user}>Participant {user}</Checkbox></Col>)}
         </Row>
       </CheckboxGroup>
     </div>

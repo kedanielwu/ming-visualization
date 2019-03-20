@@ -28,7 +28,7 @@ const handleChange = ({file, fileList}) => {
         if (sessionData) {
           sessionData.set(fileNameToken[0], contents)
         } else {
-          dataStore.playbackFiles.set(fileNameToken[2], new Map())
+          dataStore.problemFiles.set(fileNameToken[2], new Map())
           sessionData = dataStore.problemFiles.get(fileNameToken[2])
           sessionData.set(fileNameToken[0], contents)
         }
