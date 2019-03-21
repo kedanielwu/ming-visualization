@@ -51,7 +51,7 @@ const Graph = observer(() => {
     const temp = problems.filter(val => !val.fakeInput).map(val => ({
       p_videoTime: val.start_index + 5,
       p_sessionTime: Math.round(val.sessionTime),
-      p_title: val.title,
+      p_title: val.title ? val.title : [],
       p_description: val.description,
       p_participants: participant
     }))
@@ -77,27 +77,36 @@ const Graph = observer(() => {
     ]
   })
   console.log(dv)
-  const maxVideoTime = Math.max.apply(null, dv.rows.map(val => val.videoTime)
+  const maxVideoTime = Math.max.apply(null, dv.rows.map(val => val.videoTime ? val.videoTime : val.p_videoTime)
   .filter(n => n))
-  const maxSessionTime = Math.max.apply(null, dv.rows.map(val => val.sessionTime).filter(n=>n))
+  const maxSessionTime = Math.max.apply(null, dv.rows.map(val => val.sessionTime ? val.sessionTime : val.p_sessionTime).filter(n=>n))
+  console.log(maxVideoTime)
   const col = {
     videoTime: {
+      minLimit: 0,
       min: 0,
+      maxLimit: maxVideoTime,
       max: maxVideoTime,
       formatter: val => (new Date(val * 1000).toISOString().substr(14, 5))
     },
     p_videoTime: {
       min: 0,
+      minLimit: 0,
+      maxLimit: maxVideoTime,
       max: maxVideoTime,
       formatter: val => (new Date(val * 1000).toISOString().substr(14, 5))
     },
     p_sessionTime: {
       min: 0,
+      minLimit: 0,
+      maxLimit: maxSessionTime,
       max: maxSessionTime,
       formatter: val => (new Date(val * 1000).toISOString().substr(14, 5))
     },
     sessionTime: {
       min: 0,
+      minLimit: 0,
+      maxLimit: maxSessionTime,
       max: maxSessionTime,
       formatter: val => (new Date(val * 1000).toISOString().substr(14, 5))
     }

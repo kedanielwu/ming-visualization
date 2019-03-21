@@ -31,7 +31,13 @@ const UserSelector = observer(() => {
   if (!UIStore.selectedSession) {
     return null
   }
-  const options = [...dataStore.playbackFiles.get(UIStore.selectedSession).keys()]
+  let temp
+  if (dataStore.playbackFiles.get(UIStore.selectedSession)) {
+    temp = dataStore.playbackFiles.get(UIStore.selectedSession).keys()
+  } else if (dataStore.problemFiles.get(UIStore.selectedSession)) {
+    temp = dataStore.problemFiles.get(UIStore.selectedSession).keys()
+  }
+  const options = [...temp]
   return (
     <div>
       <div className="user-selector-header">Select Participants: </div>
