@@ -48,11 +48,11 @@ const Graph = observer(() => {
     if (_problems) {
       problems = _problems.get(participant)
     }
-    const temp = problems.filter(val => !val.fakeInput).map(val => ({
+    const temp = problems.filter(val => !val.fakeInput && (val.title || val.description)).map(val => ({
       p_videoTime: val.start_index + 5,
       p_sessionTime: Math.round(val.sessionTime),
       p_title: val.title ? val.title : [],
-      p_description: val.description,
+      p_description: val.description ? val.description : "",
       p_participants: participant
     }))
     _problemData.set(participant, temp)
