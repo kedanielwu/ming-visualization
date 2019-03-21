@@ -138,7 +138,7 @@ const Graph = observer(() => {
           />
           <Tooltip
             crosshairs={{
-              type: "y"
+              type: "cross"
             }}
           />
           <Geom
