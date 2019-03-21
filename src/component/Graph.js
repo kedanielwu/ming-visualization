@@ -29,7 +29,11 @@ const Graph = observer(() => {
   const _data = [{sessionTime: 0}]
   const _problemData = new Map()
   selectedParticipants.forEach((participant) => {
-    const records = dataStore.playbackFiles.get(selectedSession).get(participant)
+    const _records = dataStore.playbackFiles.get(selectedSession)
+    let records = []
+    if (_records) {
+      records = _records.get(participant)
+    }
     records.forEach(record => {
       const time = Math.round(record.sessionTime)
       if (_data[time]) {
@@ -39,7 +43,11 @@ const Graph = observer(() => {
         _data[time][participant] = Math.round(record.videoTime)
       }
     })
-    const problems = dataStore.problemFiles.get(selectedSession).get(participant)
+    const _problems = dataStore.problemFiles.get(selectedSession)
+    let problems = []
+    if (_problems) {
+      problems = _problems.get(participant)
+    }
     const temp = problems.filter(val => !val.fakeInput).map(val => ({
       p_videoTime: val.start_index + 5,
       p_sessionTime: Math.round(val.sessionTime),
